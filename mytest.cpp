@@ -3,9 +3,7 @@
 #include "lib.h"
 
 TEST(VersionTest, mytest1) {
-	int a;
-	a = version();
-    EXPECT_GT(a, 0);
+    EXPECT_GT(version(), 0);
 }
 
 int main(int argc, char *argv[])
