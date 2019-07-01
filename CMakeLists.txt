@@ -4,11 +4,15 @@ project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
+find_package(GTest REQUIRED)
+include_directories(SYSTEM ${GTEST_INCLUDE_DIRS})
+
 configure_file(version.h.in version.h)
 
 add_executable(helloworld_cli main.cpp)
 add_library(helloworld lib.cpp)
 add_executable(test_version test_version.cpp)
+add_executable(mytest mytest.cpp)
 
 set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     CXX_STANDARD 14
@@ -29,6 +33,8 @@ target_link_libraries(test_version
     ${Boost_LIBRARIES}
     helloworld
 )
+
+target_link_libraries(mytest ${GTEST_LIBRARIES} pthread helloworld)
 
 if (MSVC)
     target_compile_options(helloworld_cli PRIVATE
@@ -62,10 +68,14 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
-set(CPACK_PACKAGE_CONTACT example@example.com)
+set(CPACK_PACKAGE_CONTACT zonner2785@gmail.com)
 
 include(CPack)
 
 enable_testing()
 
 add_test(test_version test_version)
+
+add_test(NAME mytest COMMAND mytest)
+
+
