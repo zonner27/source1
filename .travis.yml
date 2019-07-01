@@ -5,10 +5,14 @@ before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 script:
-- cd /usr/src/gtest/
-- cmake CMakeLists.txt
-- make
-- cp *.a /usr/lib
+- cd /usr/src/googletest/googletest
+- sudo mkdir build
+- cd build
+- sudo cmake ..
+- sudo make
+- sudo cp libgtest* /usr/lib/
+- cd ..
+- sudo rm -rf build
 - cd ~
 - cmake .
 - cmake --build .
