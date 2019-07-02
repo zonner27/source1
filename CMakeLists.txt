@@ -34,7 +34,11 @@ target_link_libraries(test_version
     helloworld
 )
 
-target_link_libraries(mytest ${GTEST_LIBRARIES} pthread helloworld)
+find_package(Threads)
+
+target_link_libraries(mytest ${GTEST_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} helloworld)
+
+
 
 if (MSVC)
     target_compile_options(helloworld_cli PRIVATE
