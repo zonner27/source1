@@ -6,9 +6,9 @@ before_script:
 - sudo apt-get update -qq
 script:
 - PATH1=${PWD}
-- cd /usr/src/googletest/googletest/
-- cmake .
-- make
+- cd /usr/src/gtest
+- sudo cmake .
+- sudo make
 - cp *.a /usr/lib
 - cd $PATH1
 - pwd
