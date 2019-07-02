@@ -7,7 +7,7 @@ before_script:
 script:
 - PATH1=${PWD}
 - cd /usr/src/gtest
-- sudo cmake .
+- sudo -E cmake .
 - sudo make
 - cp *.a /usr/lib
 - cd $PATH1
